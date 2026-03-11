@@ -1,0 +1,6 @@
+f5-tts
+torch
+torchaudio
+gradio>=4.0.0
+soundfile
+numpy
