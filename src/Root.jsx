@@ -26,7 +26,7 @@ export default function Root() {
         <Routes>
           <Route path="/"      element={<Landing />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/app"   element={<Protected><AppPage /></Protected>} />
+          <Route path="/app"   element={<AppPage />} />
           <Route path="*"      element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
