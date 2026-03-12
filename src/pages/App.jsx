@@ -21,7 +21,7 @@ function getWeekKey() {
   const startOfWeek = new Date(now)
   startOfWeek.setHours(0, 0, 0, 0)
   startOfWeek.setDate(now.getDate() - now.getDay())
-  return `rv_usage_${startOfWeek.toISOString().split('T')[0]}`
+  return `redacast_usage_${startOfWeek.toISOString().split('T')[0]}`
 }
 
 export default function App() {
@@ -43,7 +43,6 @@ export default function App() {
     }
   }, [user])
 
-  // Auto-scroll to audio when ready
   useEffect(() => {
     if (audioUrl && audioRef.current) {
       setTimeout(() => {
@@ -88,7 +87,6 @@ export default function App() {
   }
 
   const navigate = useNavigate()
-  const navLink = { color: '#ccc', fontSize: '14px', fontWeight: '700', textDecoration: 'none' }
 
   function goToPricing() {
     navigate('/')
@@ -107,11 +105,11 @@ export default function App() {
       <div style={{ position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 40px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
           <Link to="/" style={{ textDecoration: 'none' }}>
-            <span style={{ color: '#fff', fontSize: '18px', fontWeight: '800', letterSpacing: '-0.03em' }}>ReVoice <span style={{ color: '#6366f1' }}>AI</span></span>
+            <span style={{ color: '#fff', fontSize: '18px', fontWeight: '800', letterSpacing: '-0.03em' }}>Reda<span style={{ color: '#6366f1' }}>cast</span></span>
           </Link>
-          <Link to="/" style={{ color: '#ccc', fontSize: '14px', fontWeight: '700', textDecoration: 'none', fontFamily: 'inherit' }}>Home</Link>
-          <button onClick={goToPricing} style={{ color: '#ccc', fontSize: '14px', fontWeight: '700', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}>Pricing</button>
-          <button onClick={() => setShowSettings(s => !s)} style={{ color: showSettings ? '#a5b4fc' : '#ccc', fontSize: '14px', fontWeight: '700', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0, display: 'flex', alignItems: 'center', gap: 6 }}>
+          <Link to="/" style={{ color: '#fff', fontSize: '14px', fontWeight: '700', textDecoration: 'none', fontFamily: 'inherit' }}>Home</Link>
+          <button onClick={goToPricing} style={{ color: '#fff', fontSize: '14px', fontWeight: '700', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}>Pricing</button>
+          <button onClick={() => setShowSettings(s => !s)} style={{ color: showSettings ? '#a5b4fc' : '#fff', fontSize: '14px', fontWeight: '700', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0, display: 'flex', alignItems: 'center', gap: 6 }}>
             ⚙️ Settings
           </button>
         </div>
@@ -124,7 +122,7 @@ export default function App() {
             </>
           ) : (
             <>
-              <Link to="/login" style={{ color: '#ccc', fontSize: '13px', fontWeight: '700', textDecoration: 'none', padding: '6px 14px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}>Sign in</Link>
+              <Link to="/login" style={{ color: '#fff', fontSize: '13px', fontWeight: '700', textDecoration: 'none', padding: '6px 14px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}>Sign in</Link>
               <Link to="/login" style={{ background: '#6366f1', borderRadius: '8px', padding: '6px 14px', color: '#fff', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>Sign up free</Link>
             </>
           )}

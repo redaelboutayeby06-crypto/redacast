@@ -39,7 +39,7 @@ export default function Login() {
 
       {/* Logo */}
       <Link to="/" style={{ textDecoration: 'none', marginBottom: '32px', zIndex: 1 }}>
-        <span style={{ color: '#fff', fontSize: '22px', fontWeight: '800', letterSpacing: '-0.03em' }}>ReVoice <span style={{ color: '#6366f1' }}>AI</span></span>
+        <span style={{ color: '#fff', fontSize: '22px', fontWeight: '800', letterSpacing: '-0.03em' }}>Reda<span style={{ color: '#6366f1' }}>cast</span></span>
       </Link>
 
       <div style={{ position: 'relative', zIndex: 1, background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '40px', width: '100%', maxWidth: '400px' }}>
@@ -47,7 +47,7 @@ export default function Login() {
           {isSignUp ? 'Create Account' : 'Welcome Back'}
         </h1>
         <p style={{ color: '#666', textAlign: 'center', marginBottom: '32px', fontSize: '14px' }}>
-          {isSignUp ? 'Start generating voiceovers for free' : 'Sign in to ReVoice AI'}
+          {isSignUp ? 'Start generating voiceovers for free' : 'Sign in to Redacast'}
         </p>
 
         {error && (
@@ -81,12 +81,11 @@ export default function Login() {
             {isSignUp ? 'Sign In' : 'Sign Up'}
           </span>
         </p>
+        <p style={{ color: '#333', fontSize: '12px', marginTop: '24px', zIndex: 1 }}>
+          Or{' '}
+          <Link to="/app" style={{ color: '#6366f1', textDecoration: 'none', fontWeight: '600' }}>try free without signup →</Link>
+        </p>
       </div>
-
-      <p style={{ color: '#333', fontSize: '12px', marginTop: '24px', zIndex: 1 }}>
-        Or{' '}
-        <Link to="/app" style={{ color: '#6366f1', textDecoration: 'none', fontWeight: '600' }}>try free without signup →</Link>
-      </p>
     </div>
   )
 }
