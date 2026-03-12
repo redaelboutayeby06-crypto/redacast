@@ -204,7 +204,7 @@ export default function App() {
           )}
           {user && charsLeft < 1000 && (
             <p style={{ color: '#ef4444', fontSize: '12px', marginTop: '8px', marginBottom: 0 }}>
-              Running low — <Link to="/#pricing" style={{ color: '#a5b4fc', textDecoration: 'none', fontWeight: '600' }}>upgrade to Pro for unlimited</Link>
+              Running low — <button onClick={goToPricing} style={{ color: '#a5b4fc', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '600', fontSize: '12px', padding: 0, fontFamily: 'inherit' }}>upgrade to Pro for unlimited</button>
             </p>
           )}
         </div>
@@ -249,7 +249,7 @@ export default function App() {
           <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '10px', padding: '12px 16px', marginBottom: '16px', color: '#fca5a5', fontSize: '14px' }}>
             {error}
             <div style={{ marginTop: '10px' }}>
-              <Link to="/#pricing" style={{ display: 'inline-block', background: '#6366f1', borderRadius: '8px', padding: '7px 16px', color: '#fff', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>⚡ View Pricing →</Link>
+              <button onClick={goToPricing} style={{ display: 'inline-block', background: '#6366f1', borderRadius: '8px', padding: '7px 16px', color: '#fff', fontWeight: '700', fontSize: '13px', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>⚡ View Pricing →</button>
             </div>
           </div>
         )}
@@ -259,9 +259,9 @@ export default function App() {
           <button onClick={generateVoice} disabled={loading || !text.trim() || text.length > charsLeft} style={{ flex: 1, background: loading || !text.trim() || text.length > charsLeft ? '#111' : '#6366f1', border: 'none', borderRadius: '12px', padding: '16px', color: loading || !text.trim() || text.length > charsLeft ? '#333' : '#fff', fontWeight: '700', fontSize: '16px', cursor: loading || !text.trim() || text.length > charsLeft ? 'not-allowed' : 'pointer', transition: 'all 0.2s ease', fontFamily: 'inherit' }}>
             {loading ? '⏳ Generating...' : '🎙️ Generate Voiceover'}
           </button>
-          <Link to="/#pricing" style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)', borderRadius: '12px', padding: '16px 20px', color: '#a5b4fc', fontWeight: '700', textDecoration: 'none', fontSize: '14px', whiteSpace: 'nowrap' }}>
+          <button onClick={goToPricing} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)', borderRadius: '12px', padding: '16px 20px', color: '#a5b4fc', fontWeight: '700', fontSize: '14px', whiteSpace: 'nowrap', cursor: 'pointer', fontFamily: 'inherit' }}>
             ⚡ Upgrade
-          </Link>
+          </button>
         </div>
         <p style={{ color: '#444', fontSize: '12px', textAlign: 'center', marginBottom: '24px' }}>
           {!user ? 'No signup needed · 500 chars free' : 'Free plan · 20,000 chars/month'}
