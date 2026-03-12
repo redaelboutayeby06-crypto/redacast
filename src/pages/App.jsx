@@ -16,6 +16,13 @@ const VOICES = [
   { id: 'bm_lewis',   label: 'Lewis',   desc: 'British & dramatic', emoji: '🎭' },
 ]
 
+// Example scripts users can try
+const EXAMPLES = [
+  "Hey guys, welcome back to the channel! Today we're diving into an amazing story that will blow your mind...",
+  "In this video, I'll show you how to grow your YouTube channel from zero to 100k subscribers...",
+  "Once upon a time in a small village, there lived a young creator with a big dream...",
+]
+
 function getWeekKey() {
   const now = new Date()
   const startOfWeek = new Date(now)
@@ -35,6 +42,28 @@ export default function App() {
   const [charsUsed, setCharsUsed] = useState(0)
   const [showSettings, setShowSettings] = useState(false)
   const audioRef = useRef(null)
+
+  // Load saved voice preference (Feature 1)
+  useEffect(() => {
+    const savedVoice = localStorage.getItem('preferred_voice')
+    if (savedVoice) setVoice(savedVoice)
+  }, [])
+
+  // Save voice preference (Feature 1)
+  useEffect(() => {
+    localStorage.setItem('preferred_voice', voice)
+  }, [voice])
+
+  // Keyboard shortcut - Ctrl+Enter (Feature 2)
+useEffect(() => {
+  const handleKeyDown = (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      generateVoice()
+    }
+  }
+  window.addEventListener('keydown', handleKeyDown)
+  return () => window.removeEventListener('keydown', handleKeyDown)
+}, [text, voice, speed, user, charsUsed])  // ← FIXED: use charsUsed instead
 
   useEffect(() => {
     if (user) {
@@ -94,6 +123,12 @@ export default function App() {
       const el = document.getElementById('pricing')
       if (el) el.scrollIntoView({ behavior: 'smooth' })
     }, 100)
+  }
+
+  // Load example script (Feature 3)
+  function loadExample() {
+    const randomExample = EXAMPLES[Math.floor(Math.random() * EXAMPLES.length)]
+    setText(randomExample)
   }
 
   return (
@@ -235,14 +270,24 @@ export default function App() {
           </div>
         </div>
 
-        {/* Text input */}
+        {/* Text input with example button */}
         <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '20px', marginBottom: '16px' }}>
-          <label style={{ color: '#888', fontSize: '13px', display: 'block', marginBottom: '10px', fontWeight: '600' }}>Your script</label>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <label style={{ color: '#888', fontSize: '13px', fontWeight: '600' }}>Your script</label>
+            <button onClick={loadExample} style={{ background: '#222', border: '1px solid #333', borderRadius: '20px', padding: '6px 12px', color: '#aaa', fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              📋 Try an example
+            </button>
+          </div>
           <textarea value={text} onChange={e => setText(e.target.value)} placeholder="Hey everyone, welcome back to my channel! Today's story is unlike anything I've ever covered..." rows={6} style={{ width: '100%', background: '#111', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '8px', padding: '14px', color: '#ddd', fontSize: '15px', resize: 'vertical', boxSizing: 'border-box', fontFamily: 'inherit', lineHeight: '1.6', outline: 'none' }} />
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
             <span style={{ color: '#555', fontSize: '12px' }}>{selectedVoice?.emoji} {selectedVoice?.label} · {speed.toFixed(1)}x</span>
-            <span style={{ color: text.length > charsLeft ? '#ef4444' : '#555', fontSize: '12px', fontWeight: '600' }}>{text.length} / {limit}</span>
+            <span style={{ color: text.length > charsLeft ? '#ef4444' : '#555', fontSize: '12px', fontWeight: '600' }}>
+              {text.length} / {limit}
+            </span>
           </div>
+          <p style={{ color: '#444', fontSize: '11px', marginTop: '8px', marginBottom: 0 }}>
+            ⌨️ Press Ctrl+Enter to generate
+          </p>
         </div>
 
         {error && (
@@ -283,6 +328,11 @@ export default function App() {
             <Link to="/login" style={{ display: 'inline-block', background: '#6366f1', borderRadius: '8px', padding: '9px 22px', color: '#fff', fontWeight: '700', textDecoration: 'none', fontSize: '14px' }}>Create Free Account →</Link>
           </div>
         )}
+
+        {/* Simple Footer */}
+        <div style={{ marginTop: '40px', padding: '20px 0', borderTop: '1px solid rgba(255,255,255,0.06)', textAlign: 'center' }}>
+          <p style={{ color: '#444', fontSize: '12px' }}>© {new Date().getFullYear()} Redacast. All rights reserved.</p>
+        </div>
 
       </div>
     </div>
