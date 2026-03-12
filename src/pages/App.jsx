@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../firebase/AuthContext'
 
 const WEEKLY_LIMIT = 5000
@@ -87,7 +87,16 @@ export default function App() {
     setLoading(false)
   }
 
+  const navigate = useNavigate()
   const navLink = { color: '#ccc', fontSize: '14px', fontWeight: '700', textDecoration: 'none' }
+
+  function goToPricing() {
+    navigate('/')
+    setTimeout(() => {
+      const el = document.getElementById('pricing')
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }, 100)
+  }
 
   return (
     <div style={{ minHeight: '100vh', background: '#000', color: '#fff', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
@@ -101,7 +110,7 @@ export default function App() {
             <span style={{ color: '#fff', fontSize: '18px', fontWeight: '800', letterSpacing: '-0.03em' }}>ReVoice <span style={{ color: '#6366f1' }}>AI</span></span>
           </Link>
           <Link to="/" style={navLink}>Home</Link>
-          <Link to="/#pricing" style={navLink}>Pricing</Link>
+          <button onClick={goToPricing} style={{ ...navLink, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>Pricing</button>
           <button onClick={() => setShowSettings(s => !s)} style={{ ...navLink, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 6, color: showSettings ? '#a5b4fc' : '#ccc' }}>
             ⚙️ Settings
           </button>

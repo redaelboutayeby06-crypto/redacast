@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../firebase/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -15,7 +15,6 @@ export default function Login() {
     e.preventDefault()
     setError('')
     setLoading(true)
-
     try {
       if (isSignUp) {
         const { error } = await signUp(email, password)
@@ -29,70 +28,65 @@ export default function Login() {
     } catch (err) {
       setError(err.message)
     }
-
     setLoading(false)
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ background: '#111', border: '1px solid #222', borderRadius: '16px', padding: '40px', width: '100%', maxWidth: '400px' }}>
-        <h1 style={{ color: '#00e5ff', fontSize: '24px', fontWeight: '700', marginBottom: '8px', textAlign: 'center' }}>
+    <div style={{ minHeight: '100vh', background: '#000', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+
+      {/* Glow */}
+      <div style={{ position: 'fixed', width: 600, height: 600, background: 'radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 65%)', top: -200, left: '50%', transform: 'translateX(-50%)', zIndex: 0, borderRadius: '50%', pointerEvents: 'none' }} />
+
+      {/* Logo */}
+      <Link to="/" style={{ textDecoration: 'none', marginBottom: '32px', zIndex: 1 }}>
+        <span style={{ color: '#fff', fontSize: '22px', fontWeight: '800', letterSpacing: '-0.03em' }}>ReVoice <span style={{ color: '#6366f1' }}>AI</span></span>
+      </Link>
+
+      <div style={{ position: 'relative', zIndex: 1, background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '40px', width: '100%', maxWidth: '400px' }}>
+        <h1 style={{ color: '#fff', fontSize: '24px', fontWeight: '800', marginBottom: '8px', textAlign: 'center', letterSpacing: '-0.02em' }}>
           {isSignUp ? 'Create Account' : 'Welcome Back'}
         </h1>
-        <p style={{ color: '#666', textAlign: 'center', marginBottom: '32px' }}>
-          {isSignUp ? 'Start cloning your voice for free' : 'Sign in to VoiceClone AI'}
+        <p style={{ color: '#666', textAlign: 'center', marginBottom: '32px', fontSize: '14px' }}>
+          {isSignUp ? 'Start generating voiceovers for free' : 'Sign in to ReVoice AI'}
         </p>
 
         {error && (
-          <div style={{ background: error.includes('Check') ? '#0a2a0a' : '#2a0a0a', border: `1px solid ${error.includes('Check') ? '#00ff00' : '#ff0000'}`, borderRadius: '8px', padding: '12px', marginBottom: '20px', color: error.includes('Check') ? '#00ff00' : '#ff6666', fontSize: '14px' }}>
+          <div style={{ background: error.includes('Check') ? 'rgba(34,197,94,0.08)' : 'rgba(239,68,68,0.08)', border: `1px solid ${error.includes('Check') ? 'rgba(34,197,94,0.25)' : 'rgba(239,68,68,0.25)'}`, borderRadius: '10px', padding: '12px 16px', marginBottom: '20px', color: error.includes('Check') ? '#86efac' : '#fca5a5', fontSize: '14px' }}>
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '16px' }}>
-            <label style={{ color: '#aaa', fontSize: '14px', display: 'block', marginBottom: '6px' }}>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-              style={{ width: '100%', background: '#1a1a1a', border: '1px solid #333', borderRadius: '8px', padding: '12px', color: '#fff', fontSize: '14px', boxSizing: 'border-box' }}
-              placeholder="you@example.com"
-            />
+            <label style={{ color: '#888', fontSize: '13px', fontWeight: '600', display: 'block', marginBottom: '8px' }}>Email</label>
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="you@example.com"
+              style={{ width: '100%', background: '#111', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', padding: '13px 14px', color: '#ddd', fontSize: '14px', boxSizing: 'border-box', outline: 'none', fontFamily: 'inherit' }} />
           </div>
 
-          <div style={{ marginBottom: '24px' }}>
-            <label style={{ color: '#aaa', fontSize: '14px', display: 'block', marginBottom: '6px' }}>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              style={{ width: '100%', background: '#1a1a1a', border: '1px solid #333', borderRadius: '8px', padding: '12px', color: '#fff', fontSize: '14px', boxSizing: 'border-box' }}
-              placeholder="••••••••"
-            />
+          <div style={{ marginBottom: '28px' }}>
+            <label style={{ color: '#888', fontSize: '13px', fontWeight: '600', display: 'block', marginBottom: '8px' }}>Password</label>
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} required placeholder="••••••••"
+              style={{ width: '100%', background: '#111', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', padding: '13px 14px', color: '#ddd', fontSize: '14px', boxSizing: 'border-box', outline: 'none', fontFamily: 'inherit' }} />
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            style={{ width: '100%', background: 'linear-gradient(135deg, #00e5ff, #b8ff57)', border: 'none', borderRadius: '8px', padding: '14px', color: '#000', fontWeight: '700', fontSize: '16px', cursor: 'pointer' }}
-          >
+          <button type="submit" disabled={loading}
+            style={{ width: '100%', background: loading ? '#1a1a2e' : '#6366f1', border: 'none', borderRadius: '10px', padding: '14px', color: loading ? '#444' : '#fff', fontWeight: '700', fontSize: '16px', cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' }}>
             {loading ? 'Please wait...' : isSignUp ? 'Create Account' : 'Sign In'}
           </button>
         </form>
 
-        <p style={{ color: '#666', textAlign: 'center', marginTop: '20px', fontSize: '14px' }}>
+        <p style={{ color: '#555', textAlign: 'center', marginTop: '20px', fontSize: '14px', marginBottom: 0 }}>
           {isSignUp ? 'Already have an account? ' : "Don't have an account? "}
-          <span
-            onClick={() => { setIsSignUp(!isSignUp); setError('') }}
-            style={{ color: '#00e5ff', cursor: 'pointer' }}
-          >
+          <span onClick={() => { setIsSignUp(!isSignUp); setError('') }} style={{ color: '#a5b4fc', cursor: 'pointer', fontWeight: '700' }}>
             {isSignUp ? 'Sign In' : 'Sign Up'}
           </span>
         </p>
       </div>
+
+      <p style={{ color: '#333', fontSize: '12px', marginTop: '24px', zIndex: 1 }}>
+        Or{' '}
+        <Link to="/app" style={{ color: '#6366f1', textDecoration: 'none', fontWeight: '600' }}>try free without signup →</Link>
+      </p>
     </div>
   )
 }
