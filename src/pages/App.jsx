@@ -109,9 +109,9 @@ export default function App() {
           <Link to="/" style={{ textDecoration: 'none' }}>
             <span style={{ color: '#fff', fontSize: '18px', fontWeight: '800', letterSpacing: '-0.03em' }}>ReVoice <span style={{ color: '#6366f1' }}>AI</span></span>
           </Link>
-          <Link to="/" style={navLink}>Home</Link>
-          <button onClick={goToPricing} style={{ ...navLink, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>Pricing</button>
-          <button onClick={() => setShowSettings(s => !s)} style={{ ...navLink, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 6, color: showSettings ? '#a5b4fc' : '#ccc' }}>
+          <Link to="/" style={{ color: '#ccc', fontSize: '14px', fontWeight: '700', textDecoration: 'none', fontFamily: 'inherit' }}>Home</Link>
+          <button onClick={goToPricing} style={{ color: '#ccc', fontSize: '14px', fontWeight: '700', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}>Pricing</button>
+          <button onClick={() => setShowSettings(s => !s)} style={{ color: showSettings ? '#a5b4fc' : '#ccc', fontSize: '14px', fontWeight: '700', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0, display: 'flex', alignItems: 'center', gap: 6 }}>
             ⚙️ Settings
           </button>
         </div>
@@ -119,7 +119,7 @@ export default function App() {
           {user ? (
             <>
               <span style={{ color: '#555', fontSize: '13px' }}>{user?.email}</span>
-              <Link to="/#pricing" style={{ background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '8px', padding: '6px 14px', color: '#a5b4fc', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>⚡ Upgrade</Link>
+              <button onClick={goToPricing} style={{ background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '8px', padding: '6px 14px', color: '#a5b4fc', fontWeight: '700', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit' }}>⚡ Upgrade</button>
               <button onClick={signOut} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '6px 14px', color: '#666', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit' }}>Sign out</button>
             </>
           ) : (
@@ -165,14 +165,14 @@ export default function App() {
               <div style={{ background: '#111', borderRadius: '12px', padding: '16px' }}>
                 <div style={{ color: '#666', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>Current plan</div>
                 <div style={{ color: '#aaa', fontSize: '13px', marginBottom: '10px' }}>Free — Microsoft Neural voices</div>
-                <Link to="/#pricing" onClick={() => setShowSettings(false)} style={{ display: 'block', textAlign: 'center', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '8px', padding: '8px', color: '#a5b4fc', fontWeight: '700', textDecoration: 'none', fontSize: '13px' }}>⚡ Upgrade to Pro</Link>
+                <button onClick={() => { setShowSettings(false); goToPricing() }} style={{ display: 'block', width: '100%', textAlign: 'center', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '8px', padding: '8px', color: '#a5b4fc', fontWeight: '700', fontSize: '13px', cursor: 'pointer', fontFamily: 'inherit' }}>⚡ Upgrade to Pro</button>
               </div>
               <div style={{ background: '#111', borderRadius: '12px', padding: '16px' }}>
                 <div style={{ color: '#666', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>Quick links</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <Link to="/" onClick={() => setShowSettings(false)} style={{ color: '#aaa', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>🏠 Home</Link>
-                  <Link to="/#pricing" onClick={() => setShowSettings(false)} style={{ color: '#aaa', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>💳 Pricing</Link>
-                  <Link to="/#feedback" onClick={() => setShowSettings(false)} style={{ color: '#aaa', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>💬 Leave feedback</Link>
+                  <Link to="/" onClick={() => setShowSettings(false)} style={{ color: '#aaa', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>🏠 Home</Link>
+                  <button onClick={() => { setShowSettings(false); goToPricing() }} style={{ color: '#aaa', fontSize: '13px', fontWeight: '700', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left', padding: 0 }}>💳 Pricing</button>
+                  <button onClick={() => { setShowSettings(false); navigate('/'); setTimeout(() => { document.getElementById('feedback')?.scrollIntoView({ behavior: 'smooth' }) }, 100) }} style={{ color: '#aaa', fontSize: '13px', fontWeight: '700', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left', padding: 0 }}>💬 Leave feedback</button>
                 </div>
               </div>
             </div>
