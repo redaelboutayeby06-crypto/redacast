@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../firebase/AuthContext'
 
-const WEEKLY_LIMIT = 1000000
-const GUEST_LIMIT = 200000
+const MONTHLY_LIMIT = 1000000
+const GUEST_LIMIT = 2000
 
 const VOICES = [
   { id: 'af_heart',   label: 'Heart',   desc: 'Warm & natural',     emoji: '❤️' },
@@ -16,7 +16,6 @@ const VOICES = [
   { id: 'bm_lewis',   label: 'Lewis',   desc: 'British & dramatic', emoji: '🎭' },
 ]
 
-// Example scripts users can try
 const EXAMPLES = [
   "Hey guys, welcome back to the channel! Today we're diving into an amazing story that will blow your mind...",
   "In this video, I'll show you how to grow your YouTube channel from zero to 100k subscribers...",
@@ -25,8 +24,7 @@ const EXAMPLES = [
 
 function getMonthKey() {
   const now = new Date()
-  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
-  return `redacast_usage_${startOfMonth.toISOString().split('T')[0]}`
+  return `redacast_usage_${now.getFullYear()}_${now.getMonth()}`
 }
 
 export default function App() {
@@ -41,33 +39,26 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false)
   const audioRef = useRef(null)
 
-  // Load saved voice preference (Feature 1)
   useEffect(() => {
     const savedVoice = localStorage.getItem('preferred_voice')
     if (savedVoice) setVoice(savedVoice)
   }, [])
 
-  // Save voice preference (Feature 1)
   useEffect(() => {
     localStorage.setItem('preferred_voice', voice)
   }, [voice])
 
-  // Keyboard shortcut - Ctrl+Enter (Feature 2)
-useEffect(() => {
-  const handleKeyDown = (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-      generateVoice()
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') generateVoice()
     }
-  }
-  window.addEventListener('keydown', handleKeyDown)
-  return () => window.removeEventListener('keydown', handleKeyDown)
-}, [text, voice, speed, user, charsUsed])  // ← FIXED: use charsUsed instead
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [text, voice, speed, user, charsUsed])
 
   useEffect(() => {
-    if (user) {
-      const stored = parseInt(localStorage.getItem(getWeekKey()) || '0')
-      setCharsUsed(stored)
-    }
+    const stored = parseInt(localStorage.getItem(getMonthKey()) || '0')
+    setCharsUsed(stored)
   }, [user])
 
   useEffect(() => {
@@ -78,17 +69,30 @@ useEffect(() => {
     }
   }, [audioUrl])
 
-  const limit = user ? WEEKLY_LIMIT : GUEST_LIMIT
+  const limit = user ? MONTHLY_LIMIT : GUEST_LIMIT
   const charsLeft = limit - charsUsed
   const usagePercent = Math.min((charsUsed / limit) * 100, 100)
   const selectedVoice = VOICES.find(v => v.id === voice)
+  const navigate = useNavigate()
+
+  function goToPricing() {
+    navigate('/')
+    setTimeout(() => {
+      const el = document.getElementById('pricing')
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }, 100)
+  }
+
+  function loadExample() {
+    setText(EXAMPLES[Math.floor(Math.random() * EXAMPLES.length)])
+  }
 
   async function generateVoice() {
     if (!text.trim()) return
     if (text.length > charsLeft) {
       setError(user
-        ? `Only ${charsLeft} chars left this week. Upgrade to Pro for unlimited.`
-        : `Guest limit is 500 characters. Create a free account for 20,000 chars/month.`
+        ? `Only ${charsLeft.toLocaleString()} chars left this month. Upgrade to Pro for unlimited.`
+        : `Guest limit is 200,000 characters. Create a free account for 1,000,000/month.`
       )
       return
     }
@@ -105,28 +109,12 @@ useEffect(() => {
       if (!result.success || !result.audio) throw new Error(result.error || 'Generation failed. Please try again.')
       setAudioUrl(result.audio)
       const newUsed = charsUsed + text.length
-      if (user) localStorage.setItem(getWeekKey(), newUsed.toString())
+      localStorage.setItem(getMonthKey(), newUsed.toString())
       setCharsUsed(newUsed)
     } catch (err) {
       setError(err.message)
     }
     setLoading(false)
-  }
-
-  const navigate = useNavigate()
-
-  function goToPricing() {
-    navigate('/')
-    setTimeout(() => {
-      const el = document.getElementById('pricing')
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
-    }, 100)
-  }
-
-  // Load example script (Feature 3)
-  function loadExample() {
-    const randomExample = EXAMPLES[Math.floor(Math.random() * EXAMPLES.length)]
-    setText(randomExample)
   }
 
   return (
@@ -140,7 +128,7 @@ useEffect(() => {
           <Link to="/" style={{ textDecoration: 'none' }}>
             <span style={{ color: '#fff', fontSize: '18px', fontWeight: '800', letterSpacing: '-0.03em' }}>Reda<span style={{ color: '#6366f1' }}>cast</span></span>
           </Link>
-          <Link to="/" style={{ color: '#fff', fontSize: '14px', fontWeight: '700', textDecoration: 'none', fontFamily: 'inherit' }}>Home</Link>
+          <Link to="/" style={{ color: '#fff', fontSize: '14px', fontWeight: '700', textDecoration: 'none' }}>Home</Link>
           <button onClick={goToPricing} style={{ color: '#fff', fontSize: '14px', fontWeight: '700', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}>Pricing</button>
           <button onClick={() => setShowSettings(s => !s)} style={{ color: showSettings ? '#a5b4fc' : '#fff', fontSize: '14px', fontWeight: '700', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0, display: 'flex', alignItems: 'center', gap: 6 }}>
             ⚙️ Settings
@@ -180,13 +168,13 @@ useEffect(() => {
                   </>
                 ) : (
                   <>
-                    <div style={{ color: '#666', fontSize: '13px', marginBottom: '10px' }}>Not signed in — 500 char limit</div>
+                    <div style={{ color: '#666', fontSize: '13px', marginBottom: '10px' }}>Not signed in — 200,000 char limit</div>
                     <Link to="/login" style={{ display: 'block', textAlign: 'center', background: '#6366f1', borderRadius: '8px', padding: '8px', color: '#fff', fontWeight: '600', textDecoration: 'none', fontSize: '13px' }}>Create free account</Link>
                   </>
                 )}
               </div>
               <div style={{ background: '#111', borderRadius: '12px', padding: '16px' }}>
-                <div style={{ color: '#666', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>Usage this week</div>
+                <div style={{ color: '#666', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>Usage this month</div>
                 <div style={{ color: '#ddd', fontSize: '22px', fontWeight: '800', marginBottom: '4px' }}>{charsUsed.toLocaleString()}</div>
                 <div style={{ color: '#555', fontSize: '12px', marginBottom: '10px' }}>of {limit.toLocaleString()} chars</div>
                 <div style={{ background: '#1a1a1a', borderRadius: '99px', height: '4px' }}>
@@ -215,15 +203,15 @@ useEffect(() => {
         <div style={{ textAlign: 'center', marginBottom: '36px' }}>
           <h2 style={{ fontSize: '30px', fontWeight: '800', marginBottom: '10px', letterSpacing: '-0.02em' }}>Generate your voiceover</h2>
           <p style={{ color: '#777', fontSize: '15px' }}>
-            {user ? 'Type your script and generate a professional voiceover instantly' : 'Try free — 500 characters, no signup needed'}
+            {user ? 'Type your script and generate a professional voiceover instantly' : 'Try free — 200,000 characters, no signup needed'}
           </p>
         </div>
 
         {/* Usage bar */}
         <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '12px', padding: '16px 20px', marginBottom: '20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-            <span style={{ color: '#777', fontSize: '13px', fontWeight: '600' }}>{user ? 'Weekly usage' : 'Guest usage'}</span>
-            <span style={{ color: charsLeft < 100 ? '#ef4444' : '#a5b4fc', fontSize: '13px', fontWeight: '700' }}>
+            <span style={{ color: '#777', fontSize: '13px', fontWeight: '600' }}>{user ? 'Monthly usage' : 'Guest usage'}</span>
+            <span style={{ color: charsLeft < 1000 ? '#ef4444' : '#a5b4fc', fontSize: '13px', fontWeight: '700' }}>
               {charsLeft.toLocaleString()} / {limit.toLocaleString()} chars left
             </span>
           </div>
@@ -232,10 +220,10 @@ useEffect(() => {
           </div>
           {!user && (
             <p style={{ color: '#666', fontSize: '12px', marginTop: '8px', marginBottom: 0 }}>
-              <Link to="/login" style={{ color: '#a5b4fc', textDecoration: 'none', fontWeight: '600' }}>Create free account</Link> for 20,000 chars/month
+              <Link to="/login" style={{ color: '#a5b4fc', textDecoration: 'none', fontWeight: '600' }}>Create free account</Link> for 1,000,000 chars/month
             </p>
           )}
-          {user && charsLeft < 1000 && (
+          {user && charsLeft < 10000 && (
             <p style={{ color: '#ef4444', fontSize: '12px', marginTop: '8px', marginBottom: 0 }}>
               Running low — <button onClick={goToPricing} style={{ color: '#a5b4fc', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '600', fontSize: '12px', padding: 0, fontFamily: 'inherit' }}>upgrade to Pro for unlimited</button>
             </p>
@@ -268,31 +256,27 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* Text input with example button */}
+        {/* Text input */}
         <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '20px', marginBottom: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
             <label style={{ color: '#888', fontSize: '13px', fontWeight: '600' }}>Your script</label>
-            <button onClick={loadExample} style={{ background: '#222', border: '1px solid #333', borderRadius: '20px', padding: '6px 12px', color: '#aaa', fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <button onClick={loadExample} style={{ background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '20px', padding: '5px 12px', color: '#888', fontSize: '12px', cursor: 'pointer', fontFamily: 'inherit' }}>
               📋 Try an example
             </button>
           </div>
           <textarea value={text} onChange={e => setText(e.target.value)} placeholder="Hey everyone, welcome back to my channel! Today's story is unlike anything I've ever covered..." rows={6} style={{ width: '100%', background: '#111', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '8px', padding: '14px', color: '#ddd', fontSize: '15px', resize: 'vertical', boxSizing: 'border-box', fontFamily: 'inherit', lineHeight: '1.6', outline: 'none' }} />
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
             <span style={{ color: '#555', fontSize: '12px' }}>{selectedVoice?.emoji} {selectedVoice?.label} · {speed.toFixed(1)}x</span>
-            <span style={{ color: text.length > charsLeft ? '#ef4444' : '#555', fontSize: '12px', fontWeight: '600' }}>
-              {text.length} / {limit}
-            </span>
+            <span style={{ color: text.length > charsLeft ? '#ef4444' : '#555', fontSize: '12px', fontWeight: '600' }}>{text.length.toLocaleString()} / {limit.toLocaleString()}</span>
           </div>
-          <p style={{ color: '#444', fontSize: '11px', marginTop: '8px', marginBottom: 0 }}>
-            ⌨️ Press Ctrl+Enter to generate
-          </p>
+          <p style={{ color: '#444', fontSize: '11px', marginTop: '6px', marginBottom: 0 }}>⌨️ Press Ctrl+Enter to generate</p>
         </div>
 
         {error && (
           <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '10px', padding: '12px 16px', marginBottom: '16px', color: '#fca5a5', fontSize: '14px' }}>
             {error}
             <div style={{ marginTop: '10px' }}>
-              <button onClick={goToPricing} style={{ display: 'inline-block', background: '#6366f1', borderRadius: '8px', padding: '7px 16px', color: '#fff', fontWeight: '700', fontSize: '13px', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>⚡ View Pricing →</button>
+              <button onClick={goToPricing} style={{ background: '#6366f1', borderRadius: '8px', padding: '7px 16px', color: '#fff', fontWeight: '700', fontSize: '13px', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>⚡ View Pricing →</button>
             </div>
           </div>
         )}
@@ -307,10 +291,9 @@ useEffect(() => {
           </button>
         </div>
         <p style={{ color: '#444', fontSize: '12px', textAlign: 'center', marginBottom: '24px' }}>
-          {!user ? 'No signup needed · 200,000 chars free' : 'Free plan · 1 Million chars/month'}
+          {!user ? 'No signup needed · 200,000 chars free' : 'Free plan · 1,000,000 chars/month'}
         </p>
 
-        {/* Audio result */}
         {audioUrl && (
           <div ref={audioRef} style={{ background: '#0a0a0a', border: '1px solid rgba(99,102,241,0.25)', borderRadius: '16px', padding: '24px', textAlign: 'center' }}>
             <p style={{ color: '#a5b4fc', fontWeight: '700', marginBottom: '16px', fontSize: '15px' }}>✅ Your voiceover is ready!</p>
@@ -321,17 +304,15 @@ useEffect(() => {
 
         {!user && (
           <div style={{ background: '#0a0a0a', border: '1px solid rgba(99,102,241,0.1)', borderRadius: '14px', padding: '20px', marginTop: '16px', textAlign: 'center' }}>
-            <p style={{ color: '#aaa', fontWeight: '700', marginBottom: '6px', fontSize: '14px' }}>Want 20,000 chars/month for free?</p>
+            <p style={{ color: '#aaa', fontWeight: '700', marginBottom: '6px', fontSize: '14px' }}>Want 1,000,000 chars/month for free?</p>
             <p style={{ color: '#555', fontSize: '13px', marginBottom: '14px' }}>Create a free account. No credit card needed.</p>
             <Link to="/login" style={{ display: 'inline-block', background: '#6366f1', borderRadius: '8px', padding: '9px 22px', color: '#fff', fontWeight: '700', textDecoration: 'none', fontSize: '14px' }}>Create Free Account →</Link>
           </div>
         )}
 
-        {/* Simple Footer */}
         <div style={{ marginTop: '40px', padding: '20px 0', borderTop: '1px solid rgba(255,255,255,0.06)', textAlign: 'center' }}>
           <p style={{ color: '#444', fontSize: '12px' }}>© {new Date().getFullYear()} Redacast. All rights reserved.</p>
         </div>
-
       </div>
     </div>
   )
