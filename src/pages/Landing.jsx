@@ -3,140 +3,179 @@ import { useAuth } from '../firebase/AuthContext';
 import Waveform from '../components/Waveform';
 
 const FEATURES = [
-  { icon: '🎙️', label: 'Made for YouTubers', desc: 'Built specifically for Reddit story channels, commentary, and narration. Not corporate presentations.' },
-  { icon: '⚡', label: 'Generate in seconds', desc: 'Type your script, pick a voice, click generate. Your voiceover is ready instantly.' },
-  { icon: '📥', label: 'MP3 download', desc: 'Every generation exports as a clean MP3 ready for your video editor.' },
-  { icon: '🆓', label: '500 chars free — no signup', desc: 'Try it right now. No account needed. Just type and generate.' },
-  { icon: '🔊', label: '3 voice engines', desc: 'Free uses Microsoft Neural. Pro uses Google TTS 220+ voices. Premium uses ElevenLabs — the best in the world.' },
-  { icon: '🌍', label: 'More languages coming', desc: 'English now. Arabic, French, Spanish coming soon — perfect for multilingual creators.' },
+  { icon: '🎬', label: 'Faceless channels', desc: 'Run a faceless YouTube channel without ever recording your voice. Consistent, professional sound across every video.' },
+  { icon: '🎧', label: 'Podcast creators', desc: 'Generate podcast-quality voiceovers for intros, segments, and ads. Sounds human, costs nothing.' },
+  { icon: '🎙️', label: 'Commentary creators', desc: 'Add professional narration to any commentary video. No mic setup, no noise, no retakes.' },
+  { icon: '📥', label: 'Clean MP3 every time', desc: 'Every generation exports as a studio-clean MP3 ready for Premiere, DaVinci, or CapCut.' },
+  { icon: '🔊', label: '3 voice engines', desc: 'Free uses Microsoft Neural. Pro unlocks Google TTS with 220+ voices. Premium gets ElevenLabs — the best on earth.' },
+  { icon: '⚡', label: 'Generate in seconds', desc: 'No cold starts. No queue. Type your script, click generate, download your MP3. Done.' },
 ];
 
 const COMPARE = [
-  ['Free chars (no signup)',    '500 chars',     '500 chars',     '0 chars'],
-  ['Free chars (with account)', '5,000/week',    '20,000/week',   '~333/month'],
-  ['Voice engine',              'Microsoft TTS', 'Microsoft TTS', 'Standard AI'],
-  ['Built for YouTubers',       true,            false,           false],
-  ['No credit card ever',       true,            true,            false],
-  ['Unlimited price',           '$4.99/mo',      '$9.99/mo',      '$22/mo'],
+  ['Free chars (no signup)',     '500 chars',      '500 chars',     '0 chars'],
+  ['Free chars (with account)',  '5,000/week',     '20,000/week',   '~333/month'],
+  ['Voice engine',               'Microsoft TTS',  'Microsoft TTS', 'Standard AI'],
+  ['Built for YouTubers',        true,             false,           false],
+  ['No credit card ever',        true,             true,            false],
+  ['Unlimited price',            '$4.99/mo',       '$9.99/mo',      '$22/mo'],
 ];
+
+const CREATORS = [
+  { type: 'Faceless Commentary', icon: '🎭', desc: 'Never record your voice again' },
+  { type: 'Podcast Creators', icon: '🎧', desc: 'Studio quality, zero equipment' },
+  { type: 'Finance & Education', icon: '📊', desc: 'Clear, professional narration' },
+  { type: 'True Crime Channels', icon: '🔍', desc: 'Dramatic, engaging storytelling' },
+  { type: 'Motivational Content', icon: '🔥', desc: 'Powerful voices that inspire' },
+  { type: 'Documentary Style', icon: '🎞️', desc: 'Cinematic narration for any topic' },
+]
 
 export default function Landing() {
   const { user } = useAuth();
 
   return (
-    <div style={{ background: '#000', minHeight: '100vh', overflowX: 'hidden', color: '#fff', fontFamily: 'sans-serif' }}>
+    <div style={{
+      background: '#000',
+      minHeight: '100vh',
+      overflowX: 'hidden',
+      color: '#fff',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+    }}>
 
-      {/* Grid texture */}
+      {/* Subtle grid */}
       <div style={{
         position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0,
-        backgroundImage: 'linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)',
-        backgroundSize: '48px 48px'
+        backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
+        backgroundSize: '64px 64px'
       }} />
 
-      {/* Orbs */}
-      <div style={{ position: 'fixed', width: 600, height: 600, background: 'radial-gradient(circle, rgba(0,229,255,0.05) 0%, transparent 70%)', top: -200, left: -200, zIndex: 0, borderRadius: '50%', pointerEvents: 'none' }} />
-      <div style={{ position: 'fixed', width: 500, height: 500, background: 'radial-gradient(circle, rgba(184,255,87,0.04) 0%, transparent 70%)', top: 400, right: -150, zIndex: 0, borderRadius: '50%', pointerEvents: 'none' }} />
+      {/* Glow orbs */}
+      <div style={{ position: 'fixed', width: 700, height: 700, background: 'radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 65%)', top: -300, left: -200, zIndex: 0, borderRadius: '50%', pointerEvents: 'none' }} />
+      <div style={{ position: 'fixed', width: 500, height: 500, background: 'radial-gradient(circle, rgba(168,85,247,0.05) 0%, transparent 65%)', top: 300, right: -150, zIndex: 0, borderRadius: '50%', pointerEvents: 'none' }} />
 
       {/* Nav */}
-      <nav style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 40px', borderBottom: '1px solid #111' }}>
+      <nav style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 48px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none' }}>
           <Waveform bars={8} active height={20} />
-          <span style={{ fontWeight: 800, fontSize: 20, color: '#00e5ff', letterSpacing: '-0.02em' }}>ReVoice AI</span>
+          <span style={{ fontWeight: 800, fontSize: 20, color: '#fff', letterSpacing: '-0.03em' }}>ReVoice <span style={{ color: '#6366f1' }}>AI</span></span>
         </Link>
-        <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
-          <Link to="/" style={{ fontSize: 14, color: '#555', textDecoration: 'none' }}>Home</Link>
-          <a href="#pricing" style={{ fontSize: 14, color: '#555', textDecoration: 'none' }}>Pricing</a>
-          <a href="#compare" style={{ fontSize: 14, color: '#555', textDecoration: 'none' }}>Compare</a>
-          <Link to="/login" style={{ fontSize: 14, padding: '8px 16px', background: 'transparent', border: '1px solid #222', borderRadius: '8px', color: '#888', textDecoration: 'none' }}>Sign in</Link>
-          <Link to={user ? '/app' : '/login'} style={{ fontSize: 14, padding: '8px 16px', background: 'linear-gradient(135deg, #00e5ff, #b8ff57)', borderRadius: '8px', color: '#000', fontWeight: '700', textDecoration: 'none' }}>
+        <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
+          <a href="#creators" style={{ fontSize: 14, color: '#888', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={e => e.target.style.color='#fff'} onMouseLeave={e => e.target.style.color='#888'}>For Creators</a>
+          <a href="#pricing" style={{ fontSize: 14, color: '#888', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={e => e.target.style.color='#fff'} onMouseLeave={e => e.target.style.color='#888'}>Pricing</a>
+          <a href="#compare" style={{ fontSize: 14, color: '#888', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={e => e.target.style.color='#fff'} onMouseLeave={e => e.target.style.color='#888'}>Compare</a>
+          <Link to="/login" style={{ fontSize: 14, padding: '8px 18px', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#aaa', textDecoration: 'none' }}>Sign in</Link>
+          <Link to={user ? '/app' : '/app'} style={{ fontSize: 14, padding: '8px 18px', background: '#6366f1', borderRadius: '8px', color: '#fff', fontWeight: '600', textDecoration: 'none' }}>
             {user ? 'Open App →' : 'Try free →'}
           </Link>
         </div>
       </nav>
 
       {/* Hero */}
-      <section style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '100px 24px 80px', maxWidth: 820, margin: '0 auto' }}>
+      <section style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '120px 24px 80px', maxWidth: 860, margin: '0 auto' }}>
 
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(184,255,87,0.08)', border: '1px solid rgba(184,255,87,0.2)', borderRadius: '99px', padding: '6px 14px', fontSize: '13px', color: '#b8ff57', marginBottom: '28px' }}>
-          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#b8ff57', display: 'inline-block' }} />
-          Free for YouTube creators · No credit card ever
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)', borderRadius: '99px', padding: '6px 16px', fontSize: '13px', color: '#a5b4fc', marginBottom: '32px', fontWeight: '500' }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1', display: 'inline-block' }} />
+          Built for faceless YouTube creators
         </div>
 
-        <h1 style={{ fontSize: 'clamp(48px, 8vw, 88px)', fontWeight: 800, lineHeight: 1.0, letterSpacing: '-0.03em', marginBottom: 28 }}>
-          <span style={{ color: '#fff' }}>Professional voiceovers</span>
+        <h1 style={{ fontSize: 'clamp(44px, 7vw, 80px)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: 24, color: '#fff' }}>
+          Professional voiceovers
           <br />
-          <span style={{ color: '#00e5ff' }}>for your YouTube channel.</span>
+          <span style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            for faceless channels.
+          </span>
         </h1>
 
-        <p style={{ fontSize: 19, color: '#555', lineHeight: 1.7, maxWidth: 540, margin: '0 auto 40px' }}>
-          Type your script. Pick a voice. Download MP3. Built for Reddit story channels, commentary, and narration. <strong style={{ color: '#888' }}>500 chars free — no signup needed.</strong>
+        <p style={{ fontSize: 18, color: '#888', lineHeight: 1.75, maxWidth: 520, margin: '0 auto 44px', fontWeight: '400' }}>
+          Type your script. Pick a voice. Download MP3. Used by faceless creators, commentary channels, and podcasters who never want to record their own voice.
         </p>
 
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: '12px' }}>
-          <Link to={user ? '/app' : '/app'} style={{ fontSize: 17, padding: '16px 36px', background: 'linear-gradient(135deg, #00e5ff, #b8ff57)', borderRadius: '12px', color: '#000', fontWeight: '800', textDecoration: 'none' }}>
-            Try Free Now — No Signup →
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: '16px' }}>
+          <Link to="/app" style={{ fontSize: 16, padding: '14px 32px', background: '#6366f1', borderRadius: '10px', color: '#fff', fontWeight: '700', textDecoration: 'none', letterSpacing: '-0.01em' }}>
+            Try Free — No Signup →
           </Link>
-          <Link to="/login" style={{ fontSize: 17, padding: '16px 36px', background: 'transparent', border: '1px solid #222', borderRadius: '12px', color: '#888', fontWeight: '600', textDecoration: 'none' }}>
+          <Link to="/login" style={{ fontSize: 16, padding: '14px 32px', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', color: '#aaa', fontWeight: '500', textDecoration: 'none' }}>
             Create Account
           </Link>
         </div>
-        <p style={{ color: '#333', fontSize: '13px' }}>500 chars free without account · 5,000/week with free account</p>
+        <p style={{ color: '#444', fontSize: '13px' }}>500 chars free · No credit card · Ever</p>
 
         {/* Demo card */}
-        <div style={{ marginTop: 64, background: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: '20px', padding: '32px', textAlign: 'left', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <span style={{ fontSize: '12px', color: '#444', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'monospace' }}>Live demo</span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)', borderRadius: '99px', padding: '4px 10px', fontSize: '12px', color: '#00e5ff' }}>
-              <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#00e5ff', display: 'inline-block' }} />
-              Generating...
+        <div style={{ marginTop: 72, background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '20px', padding: '32px', textAlign: 'left', maxWidth: 580, marginLeft: 'auto', marginRight: 'auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+            <span style={{ fontSize: '12px', color: '#555', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: '600' }}>Live preview</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '99px', padding: '4px 12px', fontSize: '12px', color: '#a5b4fc', fontWeight: '500' }}>
+              <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#6366f1', display: 'inline-block' }} />
+              Generating
             </span>
           </div>
-          <Waveform bars={22} active height={48} />
-          <div style={{ marginTop: 20, fontFamily: 'monospace', fontSize: 14, color: '#666', background: '#111', borderRadius: 10, padding: '14px 18px', borderLeft: '3px solid #00e5ff' }}>
-            "Hey everyone, welcome back to my channel…"
+          <Waveform bars={24} active height={52} />
+          <div style={{ marginTop: 20, fontSize: 14, color: '#777', background: '#111', borderRadius: 10, padding: '14px 18px', borderLeft: '3px solid #6366f1', fontStyle: 'italic', lineHeight: '1.6' }}>
+            "Hey everyone, welcome back to my channel. Today's story is unlike anything I've ever covered…"
           </div>
+        </div>
+      </section>
+
+      {/* Who it's for */}
+      <section id="creators" style={{ position: 'relative', zIndex: 10, padding: '80px 24px', maxWidth: 1000, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <h2 style={{ fontSize: '34px', fontWeight: '800', marginBottom: '12px', letterSpacing: '-0.02em' }}>Who uses ReVoice AI?</h2>
+          <p style={{ color: '#777', fontSize: '16px' }}>If you create content without showing your face — this is for you.</p>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
+          {CREATORS.map((c, i) => (
+            <div key={i} style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '14px', padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 16, transition: 'border-color 0.2s' }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(99,102,241,0.3)'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'}
+            >
+              <div style={{ fontSize: '28px', flexShrink: 0 }}>{c.icon}</div>
+              <div>
+                <div style={{ fontWeight: '700', fontSize: '15px', color: '#fff', marginBottom: '4px' }}>{c.type}</div>
+                <div style={{ color: '#666', fontSize: '13px' }}>{c.desc}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Features */}
       <section style={{ position: 'relative', zIndex: 10, padding: '80px 24px', maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <h2 style={{ fontSize: '38px', fontWeight: '800', marginBottom: '12px' }}>Built for creators</h2>
-          <p style={{ color: '#555', fontSize: '16px' }}>Everything you need to sound consistent across every video.</p>
+          <h2 style={{ fontSize: '34px', fontWeight: '800', marginBottom: '12px', letterSpacing: '-0.02em' }}>Everything you need</h2>
+          <p style={{ color: '#777', fontSize: '16px' }}>To sound consistent across every video, every week.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 14 }}>
           {FEATURES.map((f, i) => (
-            <div key={i} style={{ background: '#0a0a0a', border: '1px solid #111', borderRadius: '16px', padding: '28px', transition: 'border-color 0.2s ease', cursor: 'default' }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(0,229,255,0.2)'}
-              onMouseLeave={e => e.currentTarget.style.borderColor = '#111'}
+            <div key={i} style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', padding: '28px', transition: 'border-color 0.2s ease' }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(99,102,241,0.3)'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'}
             >
-              <div style={{ fontSize: '28px', marginBottom: '14px' }}>{f.icon}</div>
-              <div style={{ fontWeight: '700', fontSize: '17px', color: '#fff', marginBottom: '8px' }}>{f.label}</div>
-              <div style={{ color: '#444', fontSize: '14px', lineHeight: '1.6' }}>{f.desc}</div>
+              <div style={{ fontSize: '26px', marginBottom: '14px' }}>{f.icon}</div>
+              <div style={{ fontWeight: '700', fontSize: '16px', color: '#fff', marginBottom: '8px' }}>{f.label}</div>
+              <div style={{ color: '#777', fontSize: '14px', lineHeight: '1.65' }}>{f.desc}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Voice engines explained */}
+      {/* Voice engines */}
       <section style={{ position: 'relative', zIndex: 10, padding: '80px 24px', maxWidth: 900, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <h2 style={{ fontSize: '38px', fontWeight: '800', marginBottom: '12px' }}>3 voice engines. You pick.</h2>
-          <p style={{ color: '#555', fontSize: '16px' }}>Same sentence. Three different engines. The difference is obvious.</p>
+          <h2 style={{ fontSize: '34px', fontWeight: '800', marginBottom: '12px', letterSpacing: '-0.02em' }}>3 voice engines. You choose.</h2>
+          <p style={{ color: '#777', fontSize: '16px' }}>Upgrade when you're ready. Downgrade anytime.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '14px' }}>
           {[
-            { engine: 'Microsoft Neural', plan: 'Free', planColor: '#b8ff57', quality: '⭐⭐⭐⭐', color: '#b8ff57', desc: '8 natural voices. Fast. Unlimited. No account needed for first 500 chars.', tag: 'Free forever' },
-            { engine: 'Google TTS', plan: 'Pro — $4.99/mo', planColor: '#00e5ff', quality: '⭐⭐⭐⭐⭐', color: '#00e5ff', desc: '220+ voices. 40+ languages. Crisp & clear. Used by professional creators.', tag: 'Most popular' },
-            { engine: 'ElevenLabs', plan: 'Premium — $19.99/mo', planColor: '#c084fc', quality: '⭐⭐⭐⭐⭐⭐', color: '#c084fc', desc: 'The most human AI voice on the planet. Used by top YouTubers globally.', tag: 'Best quality' },
+            { engine: 'Microsoft Neural', plan: 'Free', color: '#22c55e', quality: '⭐⭐⭐⭐', desc: '8 natural voices. Fast. Unlimited free tier. No account for first 500 chars.', tag: 'Free forever' },
+            { engine: 'Google TTS', plan: 'Pro — $4.99/mo', color: '#6366f1', quality: '⭐⭐⭐⭐⭐', desc: '220+ voices across 40+ languages. Crisp, clear, professional quality.', tag: 'Most popular' },
+            { engine: 'ElevenLabs', plan: 'Premium — $19.99/mo', color: '#a855f7', quality: '⭐⭐⭐⭐⭐⭐', desc: 'The most human AI voice on the planet. Used by top YouTubers worldwide.', tag: 'Best quality' },
           ].map((v, i) => (
             <div key={i} style={{ background: '#0a0a0a', border: `1px solid ${v.color}22`, borderRadius: '16px', padding: '24px', position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', top: 0, right: 0, width: 100, height: 100, background: `radial-gradient(circle, ${v.color}08 0%, transparent 70%)`, borderRadius: '50%' }} />
-              <div style={{ display: 'inline-block', background: `${v.color}15`, border: `1px solid ${v.color}33`, borderRadius: '99px', padding: '3px 10px', fontSize: '11px', color: v.color, fontWeight: '700', marginBottom: '12px' }}>{v.tag}</div>
-              <div style={{ fontWeight: '800', fontSize: '18px', color: v.color, marginBottom: '4px' }}>{v.engine}</div>
-              <div style={{ fontSize: '12px', color: '#444', marginBottom: '12px' }}>{v.plan}</div>
-              <div style={{ fontSize: '14px', marginBottom: '12px' }}>{v.quality}</div>
-              <p style={{ color: '#555', fontSize: '13px', lineHeight: '1.5', margin: 0 }}>{v.desc}</p>
+              <div style={{ position: 'absolute', top: -40, right: -40, width: 120, height: 120, background: `radial-gradient(circle, ${v.color}10 0%, transparent 70%)`, borderRadius: '50%' }} />
+              <div style={{ display: 'inline-block', background: `${v.color}15`, border: `1px solid ${v.color}30`, borderRadius: '99px', padding: '3px 10px', fontSize: '11px', color: v.color, fontWeight: '600', marginBottom: '14px' }}>{v.tag}</div>
+              <div style={{ fontWeight: '800', fontSize: '17px', color: '#fff', marginBottom: '4px' }}>{v.engine}</div>
+              <div style={{ fontSize: '12px', color: '#555', marginBottom: '12px' }}>{v.plan}</div>
+              <div style={{ fontSize: '13px', marginBottom: '12px' }}>{v.quality}</div>
+              <p style={{ color: '#777', fontSize: '13px', lineHeight: '1.6', margin: 0 }}>{v.desc}</p>
             </div>
           ))}
         </div>
@@ -144,28 +183,28 @@ export default function Landing() {
 
       {/* Comparison */}
       <section id="compare" style={{ position: 'relative', zIndex: 10, padding: '80px 24px', maxWidth: 800, margin: '0 auto' }}>
-        <h2 style={{ fontSize: '38px', fontWeight: '800', color: '#fff', textAlign: 'center', marginBottom: '40px' }}>How we compare</h2>
-        <div style={{ background: '#0a0a0a', border: '1px solid #111', borderRadius: '16px', overflow: 'hidden' }}>
+        <h2 style={{ fontSize: '34px', fontWeight: '800', color: '#fff', textAlign: 'center', marginBottom: '40px', letterSpacing: '-0.02em' }}>How we compare</h2>
+        <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', overflow: 'hidden' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid #111' }}>
-                <th style={{ padding: '16px 24px', textAlign: 'left', color: '#333', fontFamily: 'monospace', fontSize: '11px', textTransform: 'uppercase', fontWeight: 500 }}>Feature</th>
-                <th style={{ padding: '16px 24px', textAlign: 'center', color: '#00e5ff', fontSize: '14px', fontWeight: '700' }}>ReVoice AI</th>
-                <th style={{ padding: '16px 24px', textAlign: 'center', color: '#444', fontSize: '14px', fontWeight: '700' }}>TTSMaker</th>
-                <th style={{ padding: '16px 24px', textAlign: 'center', color: '#444', fontSize: '14px', fontWeight: '700' }}>ElevenLabs</th>
+              <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                <th style={{ padding: '16px 24px', textAlign: 'left', color: '#555', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>Feature</th>
+                <th style={{ padding: '16px 24px', textAlign: 'center', color: '#a5b4fc', fontSize: '14px', fontWeight: '700' }}>ReVoice AI</th>
+                <th style={{ padding: '16px 24px', textAlign: 'center', color: '#555', fontSize: '14px', fontWeight: '700' }}>TTSMaker</th>
+                <th style={{ padding: '16px 24px', textAlign: 'center', color: '#555', fontSize: '14px', fontWeight: '700' }}>ElevenLabs</th>
               </tr>
             </thead>
             <tbody>
               {COMPARE.map(([feat, ours, ttsmaker, eleven], i) => (
-                <tr key={i} style={{ borderBottom: i < COMPARE.length - 1 ? '1px solid #0d0d0d' : 'none' }}>
-                  <td style={{ padding: '14px 24px', color: '#555', fontSize: '14px' }}>{feat}</td>
-                  <td style={{ padding: '14px 24px', textAlign: 'center', color: ours === true ? '#b8ff57' : '#00e5ff', fontSize: '14px', fontWeight: '600' }}>
+                <tr key={i} style={{ borderBottom: i < COMPARE.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
+                  <td style={{ padding: '14px 24px', color: '#888', fontSize: '14px' }}>{feat}</td>
+                  <td style={{ padding: '14px 24px', textAlign: 'center', color: ours === true ? '#22c55e' : '#a5b4fc', fontSize: '14px', fontWeight: '600' }}>
                     {ours === true ? '✓' : ours === false ? '✗' : ours}
                   </td>
-                  <td style={{ padding: '14px 24px', textAlign: 'center', color: '#444', fontSize: '14px' }}>
+                  <td style={{ padding: '14px 24px', textAlign: 'center', color: '#555', fontSize: '14px' }}>
                     {ttsmaker === true ? '✓' : ttsmaker === false ? '✗' : ttsmaker}
                   </td>
-                  <td style={{ padding: '14px 24px', textAlign: 'center', color: '#444', fontSize: '14px' }}>
+                  <td style={{ padding: '14px 24px', textAlign: 'center', color: '#555', fontSize: '14px' }}>
                     {eleven === true ? '✓' : eleven === false ? '✗' : eleven}
                   </td>
                 </tr>
@@ -177,88 +216,68 @@ export default function Landing() {
 
       {/* Pricing */}
       <section id="pricing" style={{ position: 'relative', zIndex: 10, padding: '80px 24px', maxWidth: 1000, margin: '0 auto' }}>
-        <h2 style={{ fontSize: '38px', fontWeight: '800', color: '#fff', textAlign: 'center', marginBottom: '8px' }}>Simple pricing</h2>
-        <p style={{ color: '#555', textAlign: 'center', fontSize: '16px', marginBottom: '48px' }}>Start free. Upgrade when you're ready. Cancel anytime.</p>
+        <h2 style={{ fontSize: '34px', fontWeight: '800', color: '#fff', textAlign: 'center', marginBottom: '8px', letterSpacing: '-0.02em' }}>Simple pricing</h2>
+        <p style={{ color: '#777', textAlign: 'center', fontSize: '16px', marginBottom: '52px' }}>Start free. Upgrade when you're ready. Cancel anytime.</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
 
           {/* Free */}
-          <div style={{ background: '#0a0a0a', border: '1px solid #111', borderRadius: '20px', padding: '32px' }}>
-            <div style={{ fontWeight: '800', fontSize: '20px', color: '#fff', marginBottom: '4px' }}>Free</div>
-            <div style={{ fontSize: '42px', fontWeight: '800', color: '#fff', marginBottom: '8px' }}>$0<span style={{ fontSize: '15px', color: '#333', fontWeight: '400' }}>/mo</span></div>
-            <div style={{ fontSize: '12px', color: '#444', marginBottom: '24px' }}>No credit card. No catch.</div>
-            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {[
-                '500 chars without signup',
-                '5,000 chars/week with account',
-                '8 Microsoft Neural voices',
-                'MP3 download',
-                'Speed control',
-              ].map(f => (
-                <li key={f} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: '14px', color: '#555' }}>
-                  <span style={{ color: '#b8ff57', marginTop: '1px' }}>✓</span> {f}
+          <div style={{ background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '20px', padding: '32px' }}>
+            <div style={{ fontWeight: '700', fontSize: '16px', color: '#888', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.06em', fontSize: '12px' }}>Free</div>
+            <div style={{ fontSize: '44px', fontWeight: '800', color: '#fff', marginBottom: '4px', letterSpacing: '-0.03em' }}>$0</div>
+            <div style={{ fontSize: '13px', color: '#555', marginBottom: '28px' }}>No credit card. No catch. Forever.</div>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {['500 chars without signup', '5,000 chars/week with account', '8 Microsoft Neural voices', 'MP3 download', 'Speed control'].map(f => (
+                <li key={f} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: '14px', color: '#888' }}>
+                  <span style={{ color: '#22c55e', marginTop: '1px', flexShrink: 0 }}>✓</span> {f}
                 </li>
               ))}
             </ul>
-            <Link to="/app" style={{ display: 'block', textAlign: 'center', background: 'transparent', border: '1px solid #222', borderRadius: '10px', padding: '12px', color: '#666', fontWeight: '600', textDecoration: 'none', fontSize: '15px' }}>Try free now</Link>
+            <Link to="/app" style={{ display: 'block', textAlign: 'center', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', padding: '12px', color: '#888', fontWeight: '600', textDecoration: 'none', fontSize: '14px' }}>Try for free</Link>
           </div>
 
           {/* Pro */}
-          <div style={{ background: '#0a0a0a', border: '1px solid rgba(0,229,255,0.3)', borderRadius: '20px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: 0, right: 0, width: 200, height: 200, background: 'radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%)', borderRadius: '50%' }} />
+          <div style={{ background: '#0d0d1a', border: '1px solid rgba(99,102,241,0.4)', borderRadius: '20px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: -60, right: -60, width: 200, height: 200, background: 'radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)', borderRadius: '50%' }} />
             <div style={{ position: 'relative' }}>
-              {/* Sneaky banner */}
-              <div style={{ background: 'linear-gradient(135deg, #00e5ff, #b8ff57)', borderRadius: '8px', padding: '8px 12px', marginBottom: '16px', textAlign: 'center' }}>
-                <span style={{ fontSize: '12px', fontWeight: '800', color: '#000' }}>🤫 WE PROBABLY SHOULDN'T OFFER THIS</span>
+              <div style={{ background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '8px', padding: '7px 12px', marginBottom: '16px', textAlign: 'center' }}>
+                <span style={{ fontSize: '12px', fontWeight: '700', color: '#a5b4fc' }}>🤫 We probably shouldn't offer this price</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: '4px' }}>
-                <div style={{ fontWeight: '800', fontSize: '20px', color: '#fff' }}>Pro</div>
-                <span style={{ background: 'rgba(0,229,255,0.1)', border: '1px solid rgba(0,229,255,0.3)', borderRadius: '99px', padding: '2px 8px', fontSize: '10px', color: '#00e5ff', fontWeight: '700' }}>MOST POPULAR</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: '4px' }}>
+                <div style={{ fontWeight: '700', fontSize: '12px', color: '#888', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Pro</div>
+                <span style={{ background: '#6366f1', borderRadius: '99px', padding: '2px 8px', fontSize: '10px', color: '#fff', fontWeight: '700' }}>POPULAR</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: '4px' }}>
-                <div style={{ fontSize: '42px', fontWeight: '800', color: '#00e5ff' }}>$4.99<span style={{ fontSize: '15px', color: '#333', fontWeight: '400' }}>/mo</span></div>
-                <div style={{ fontSize: '14px', color: '#333', textDecoration: 'line-through' }}>$22/mo</div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: '4px' }}>
+                <div style={{ fontSize: '44px', fontWeight: '800', color: '#fff', letterSpacing: '-0.03em' }}>$4.99</div>
+                <div style={{ fontSize: '15px', color: '#444', textDecoration: 'line-through' }}>$22/mo</div>
               </div>
-              <div style={{ fontSize: '12px', color: '#b8ff57', marginBottom: '24px', fontWeight: '600' }}>ElevenLabs charges $22 for less. You pay $4.99.</div>
-              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {[
-                  'Unlimited generations forever',
-                  'Google TTS — 220+ voices',
-                  '40+ languages',
-                  'Priority processing',
-                  'No weekly limits ever',
-                  'Early access to new features',
-                ].map(f => (
-                  <li key={f} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: '14px', color: '#666' }}>
-                    <span style={{ color: '#00e5ff', marginTop: '1px' }}>✓</span> {f}
+              <div style={{ fontSize: '13px', color: '#6366f1', marginBottom: '28px', fontWeight: '600' }}>ElevenLabs charges $22 for less. You pay $4.99.</div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {['Unlimited generations forever', 'Google TTS — 220+ voices', '40+ languages', 'Priority processing', 'No weekly limits ever', 'Early access to new features'].map(f => (
+                  <li key={f} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: '14px', color: '#888' }}>
+                    <span style={{ color: '#6366f1', marginTop: '1px', flexShrink: 0 }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
-              <Link to="/login" style={{ display: 'block', textAlign: 'center', background: 'linear-gradient(135deg, #00e5ff, #b8ff57)', borderRadius: '10px', padding: '14px', color: '#000', fontWeight: '800', textDecoration: 'none', fontSize: '15px' }}>Get Pro for $4.99 →</Link>
-              <p style={{ textAlign: 'center', color: '#333', fontSize: '11px', marginTop: '8px', marginBottom: 0 }}>Cancel anytime. No questions asked.</p>
+              <Link to="/login" style={{ display: 'block', textAlign: 'center', background: '#6366f1', borderRadius: '10px', padding: '14px', color: '#fff', fontWeight: '700', textDecoration: 'none', fontSize: '15px' }}>Get Pro for $4.99 →</Link>
+              <p style={{ textAlign: 'center', color: '#444', fontSize: '11px', marginTop: '10px', marginBottom: 0 }}>Cancel anytime. No questions asked.</p>
             </div>
           </div>
 
           {/* Premium */}
-          <div style={{ background: '#0a0a0a', border: '1px solid rgba(192,132,252,0.2)', borderRadius: '20px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: 0, right: 0, width: 200, height: 200, background: 'radial-gradient(circle, rgba(192,132,252,0.05) 0%, transparent 70%)', borderRadius: '50%' }} />
+          <div style={{ background: '#0a0a0a', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '20px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: -60, right: -60, width: 200, height: 200, background: 'radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%)', borderRadius: '50%' }} />
             <div style={{ position: 'relative' }}>
-              <div style={{ fontWeight: '800', fontSize: '20px', color: '#fff', marginBottom: '4px' }}>Premium</div>
-              <div style={{ fontSize: '42px', fontWeight: '800', color: '#c084fc', marginBottom: '8px' }}>$19.99<span style={{ fontSize: '15px', color: '#333', fontWeight: '400' }}>/mo</span></div>
-              <div style={{ fontSize: '12px', color: '#444', marginBottom: '24px' }}>For monetized channels who need the best.</div>
-              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {[
-                  'Everything in Pro',
-                  'ElevenLabs voices',
-                  'Most human AI quality',
-                  '1000+ voice styles',
-                  'Best for monetized channels',
-                ].map(f => (
-                  <li key={f} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: '14px', color: '#666' }}>
-                    <span style={{ color: '#c084fc', marginTop: '1px' }}>✓</span> {f}
+              <div style={{ fontWeight: '700', fontSize: '12px', color: '#888', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>Premium</div>
+              <div style={{ fontSize: '44px', fontWeight: '800', color: '#fff', letterSpacing: '-0.03em', marginBottom: '4px' }}>$19.99</div>
+              <div style={{ fontSize: '13px', color: '#555', marginBottom: '28px' }}>For monetized channels who need the absolute best.</div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {['Everything in Pro', 'ElevenLabs voices', 'Most human AI quality on earth', '1,000+ voice styles', 'Best for monetized channels'].map(f => (
+                  <li key={f} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: '14px', color: '#888' }}>
+                    <span style={{ color: '#a855f7', marginTop: '1px', flexShrink: 0 }}>✓</span> {f}
                   </li>
                 ))}
               </ul>
-              <Link to="/login" style={{ display: 'block', textAlign: 'center', background: 'transparent', border: '1px solid rgba(192,132,252,0.3)', borderRadius: '10px', padding: '12px', color: '#c084fc', fontWeight: '700', textDecoration: 'none', fontSize: '15px' }}>Start Premium →</Link>
+              <Link to="/login" style={{ display: 'block', textAlign: 'center', background: 'transparent', border: '1px solid rgba(168,85,247,0.35)', borderRadius: '10px', padding: '12px', color: '#c084fc', fontWeight: '700', textDecoration: 'none', fontSize: '15px' }}>Start Premium →</Link>
             </div>
           </div>
 
@@ -267,20 +286,22 @@ export default function Landing() {
 
       {/* CTA */}
       <section style={{ position: 'relative', zIndex: 10, padding: '80px 24px 120px', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '48px', fontWeight: '800', color: '#fff', marginBottom: '14px' }}>Start generating today</h2>
-        <p style={{ color: '#444', fontSize: '16px', marginBottom: '36px' }}>No credit card. 500 chars free right now. No signup needed.</p>
-        <Link to="/app" style={{ fontSize: '17px', padding: '16px 40px', background: 'linear-gradient(135deg, #b8ff57, #00e5ff)', borderRadius: '12px', color: '#000', fontWeight: '800', textDecoration: 'none' }}>
-          Try ReVoice AI Free →
-        </Link>
+        <div style={{ maxWidth: 560, margin: '0 auto' }}>
+          <h2 style={{ fontSize: '44px', fontWeight: '800', color: '#fff', marginBottom: '14px', letterSpacing: '-0.03em' }}>Start generating today</h2>
+          <p style={{ color: '#666', fontSize: '16px', marginBottom: '36px', lineHeight: '1.6' }}>500 chars free. No signup. No credit card. No catch.</p>
+          <Link to="/app" style={{ display: 'inline-block', fontSize: '16px', padding: '14px 36px', background: '#6366f1', borderRadius: '10px', color: '#fff', fontWeight: '700', textDecoration: 'none' }}>
+            Try ReVoice AI Free →
+          </Link>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer style={{ position: 'relative', zIndex: 10, borderTop: '1px solid #0d0d0d', padding: '24px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+      <footer style={{ position: 'relative', zIndex: 10, borderTop: '1px solid rgba(255,255,255,0.05)', padding: '24px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <Waveform bars={6} active height={16} />
-          <span style={{ fontFamily: 'monospace', fontSize: '12px', color: '#333' }}>ReVoice AI</span>
+          <span style={{ fontSize: '13px', color: '#444', fontWeight: '600' }}>ReVoice AI</span>
         </div>
-        <span style={{ fontFamily: 'monospace', fontSize: '12px', color: '#333' }}>© 2026 · Built for creators</span>
+        <span style={{ fontSize: '12px', color: '#333' }}>© 2026 · Built for faceless creators</span>
       </footer>
 
     </div>
