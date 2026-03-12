@@ -72,7 +72,7 @@ export default function Landing() {
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none' }}>
           <Waveform bars={8} active height={20} />
           <span style={{ fontWeight: 800, fontSize: 20, color: '#fff', letterSpacing: '-0.03em' }}>
-            ReVoice <span style={{ color: '#6366f1' }}>AI</span>
+            Reda<span style={{ color: '#6366f1' }}>cast</span>
           </span>
         </Link>
         <div style={{ display: 'flex', gap: 28, alignItems: 'center' }}>
@@ -137,7 +137,7 @@ export default function Landing() {
       {/* ── Who it's for ── */}
       <section id="creators" style={{ position: 'relative', zIndex: 10, padding: '80px 24px', maxWidth: 1000, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <h2 style={{ fontSize: 34, fontWeight: 800, marginBottom: 12, letterSpacing: '-0.02em' }}>Who uses ReVoice AI?</h2>
+          <h2 style={{ fontSize: 34, fontWeight: 800, marginBottom: 12, letterSpacing: '-0.02em' }}>Who uses Redacast?</h2>
           <p style={{ color: '#666', fontSize: 16 }}>If you create content without showing your face — this is built for you.</p>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
@@ -210,7 +210,7 @@ export default function Landing() {
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                 <th style={{ padding: '16px 24px', textAlign: 'left',   color: '#555',    fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>Feature</th>
-                <th style={{ padding: '16px 24px', textAlign: 'center', color: '#a5b4fc', fontSize: 14, fontWeight: 700 }}>ReVoice AI</th>
+                <th style={{ padding: '16px 24px', textAlign: 'center', color: '#a5b4fc', fontSize: 14, fontWeight: 700 }}>Redacast</th>
                 <th style={{ padding: '16px 24px', textAlign: 'center', color: '#555',    fontSize: 14, fontWeight: 700 }}>TTSMaker</th>
                 <th style={{ padding: '16px 24px', textAlign: 'center', color: '#555',    fontSize: 14, fontWeight: 700 }}>ElevenLabs</th>
               </tr>
@@ -360,7 +360,7 @@ export default function Landing() {
           <h2 style={{ fontSize: 44, fontWeight: 800, color: '#fff', marginBottom: 14, letterSpacing: '-0.03em' }}>Start generating today</h2>
           <p style={{ color: '#555', fontSize: 16, marginBottom: 36, lineHeight: 1.6 }}>500 chars free. No signup. No credit card. No catch.</p>
           <Link to="/app" style={{ display: 'inline-block', fontSize: 16, padding: '14px 36px', background: '#6366f1', borderRadius: 10, color: '#fff', fontWeight: 700, textDecoration: 'none' }}>
-            Try ReVoice AI Free →
+            Try Redacast Free →
           </Link>
         </div>
       </section>
@@ -369,7 +369,7 @@ export default function Landing() {
       <footer style={{ position: 'relative', zIndex: 10, borderTop: '1px solid rgba(255,255,255,0.05)', padding: '24px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <Waveform bars={6} active height={16} />
-          <span style={{ fontSize: 13, color: '#333', fontWeight: 600 }}>ReVoice AI</span>
+          <span style={{ fontSize: 13, color: '#333', fontWeight: 600 }}>Redacast</span>
         </div>
         <span style={{ fontSize: 12, color: '#333' }}>© 2026 · Built for faceless creators</span>
       </footer>
