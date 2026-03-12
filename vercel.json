@@ -2,11 +2,5 @@
   "rewrites": [
     { "source": "/api/tts", "destination": "/api/tts.py" },
     { "source": "/(.*)", "destination": "/" }
-  ],
-  "functions": {
-    "api/tts.py": {
-      "runtime": "python3.9",
-      "maxDuration": 30
-    }
-  }
+  ]
 }
