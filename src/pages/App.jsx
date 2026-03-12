@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../firebase/AuthContext'
 
-const WEEKLY_LIMIT = 5000
-const GUEST_LIMIT = 500
+const WEEKLY_LIMIT = 1000000
+const GUEST_LIMIT = 200000
 
 const VOICES = [
   { id: 'af_heart',   label: 'Heart',   desc: 'Warm & natural',     emoji: '❤️' },
@@ -23,12 +23,10 @@ const EXAMPLES = [
   "Once upon a time in a small village, there lived a young creator with a big dream...",
 ]
 
-function getWeekKey() {
+function getMonthKey() {
   const now = new Date()
-  const startOfWeek = new Date(now)
-  startOfWeek.setHours(0, 0, 0, 0)
-  startOfWeek.setDate(now.getDate() - now.getDay())
-  return `redacast_usage_${startOfWeek.toISOString().split('T')[0]}`
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
+  return `redacast_usage_${startOfMonth.toISOString().split('T')[0]}`
 }
 
 export default function App() {
@@ -309,7 +307,7 @@ useEffect(() => {
           </button>
         </div>
         <p style={{ color: '#444', fontSize: '12px', textAlign: 'center', marginBottom: '24px' }}>
-          {!user ? 'No signup needed · 500,000 chars free' : 'Free plan · 1000,000 chars/month'}
+          {!user ? 'No signup needed · 200,000 chars free' : 'Free plan · 1 Million chars/month'}
         </p>
 
         {/* Audio result */}
