@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fix Tailwind base overriding inline link styles */
+a { color: inherit; font-weight: inherit; text-decoration: none; }
+```
 /* ── Design tokens ───────────────────────────────────────── */
 :root {
   --bg:        #03030a;
