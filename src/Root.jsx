@@ -1,3 +1,4 @@
+import ChatWidget from './components/ChatWidget'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './firebase/AuthContext';
 import Landing from './pages/Landing';
@@ -33,6 +34,7 @@ export default function Root() {
           <Route path="/terms"   element={<Terms />} />
           <Route path="*"        element={<Navigate to="/" replace />} />
         </Routes>
+      <ChatWidget />
       </AuthProvider>
     </BrowserRouter>
   );
