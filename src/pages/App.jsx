@@ -309,7 +309,7 @@ useEffect(() => {
           </button>
         </div>
         <p style={{ color: '#444', fontSize: '12px', textAlign: 'center', marginBottom: '24px' }}>
-          {!user ? 'No signup needed · 500 chars free' : 'Free plan · 1000,000 chars/month'}
+          {!user ? 'No signup needed · 500,000 chars free' : 'Free plan · 1000,000 chars/month'}
         </p>
 
         {/* Audio result */}
