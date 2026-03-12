@@ -309,14 +309,14 @@ useEffect(() => {
           </button>
         </div>
         <p style={{ color: '#444', fontSize: '12px', textAlign: 'center', marginBottom: '24px' }}>
-          {!user ? 'No signup needed · 500 chars free' : 'Free plan · 20,000 chars/month'}
+          {!user ? 'No signup needed · 500 chars free' : 'Free plan · 1000,000 chars/month'}
         </p>
 
         {/* Audio result */}
         {audioUrl && (
           <div ref={audioRef} style={{ background: '#0a0a0a', border: '1px solid rgba(99,102,241,0.25)', borderRadius: '16px', padding: '24px', textAlign: 'center' }}>
             <p style={{ color: '#a5b4fc', fontWeight: '700', marginBottom: '16px', fontSize: '15px' }}>✅ Your voiceover is ready!</p>
-            <audio controls src={audioUrl} autoPlay  style={{ width: '100%', marginBottom: '16px' }} />
+            <audio controls src={audioUrl} autoPlay style={{ width: '100%', marginBottom: '16px' }} />
             <a href={audioUrl} download="voiceover.mp3" style={{ display: 'inline-block', background: '#6366f1', borderRadius: '8px', padding: '11px 28px', color: '#fff', fontWeight: '700', textDecoration: 'none', fontSize: '14px' }}>⬇️ Download MP3</a>
           </div>
         )}
