@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../firebase/AuthContext'
 
-const HF_SPACE_URL = 'https://hexgrad-kokoro-tts.hf.space'
-
 const WEEKLY_LIMIT = 5000
 
 const VOICES = [
@@ -55,55 +53,20 @@ export default function App() {
     setAudioUrl(null)
 
     try {
-      // Step 1: Submit the job
-      const submitResponse = await fetch(`${HF_SPACE_URL}/call/predict`, {
+      const response = await fetch('/api/tts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: [text, voice, speed] })
+        body: JSON.stringify({ text, voice, speed })
       })
 
-      if (!submitResponse.ok) throw new Error('Server is waking up — please try again in 30 seconds.')
+      const result = await response.json()
 
-      const { event_id } = await submitResponse.json()
-      if (!event_id) throw new Error('No event ID returned. Please try again.')
-
-      // Step 2: Poll for result
-      const resultResponse = await fetch(`${HF_SPACE_URL}/call/predict/${event_id}`)
-      if (!resultResponse.ok) throw new Error('Failed to get audio. Please try again.')
-
-      const resultText = await resultResponse.text()
-
-      // Step 3: Parse SSE response
-      let audioData = null
-      for (const line of resultText.split('\n')) {
-        if (line.startsWith('data: ')) {
-          try {
-            const parsed = JSON.parse(line.slice(6))
-            if (Array.isArray(parsed) && parsed[0]) {
-              audioData = parsed[0]
-              break
-            }
-          } catch {}
-        }
+      if (!result.success || !result.audio) {
+        throw new Error(result.error || 'Generation failed. Please try again.')
       }
 
-      if (!audioData) throw new Error('No audio returned. Please try again.')
+      setAudioUrl(result.audio)
 
-      // Step 4: Build audio URL
-      let url
-      if (audioData?.url) {
-        url = audioData.url
-      } else if (audioData?.path) {
-        url = `${HF_SPACE_URL}/file=${audioData.path}`
-      } else if (typeof audioData === 'string' && audioData.startsWith('data:')) {
-        url = audioData
-      } else {
-        throw new Error('Unexpected response format. Please try again.')
-      }
-
-      setAudioUrl(url)
-
-      // Update usage
       const key = getWeekKey()
       localStorage.setItem(key, (charsUsed + text.length).toString())
       setCharsUsed(charsUsed + text.length)
@@ -185,10 +148,8 @@ export default function App() {
         {error && <div style={{ background: '#1a0505', border: '1px solid #ff333344', borderRadius: '10px', padding: '12px 16px', marginBottom: '16px', color: '#ff8888', fontSize: '14px' }}>{error}</div>}
 
         <button onClick={generateVoice} disabled={loading || !text.trim() || text.length > charsLeft} style={{ width: '100%', background: loading || !text.trim() || text.length > charsLeft ? '#111' : 'linear-gradient(135deg,#00e5ff,#b8ff57)', border: 'none', borderRadius: '12px', padding: '18px', color: loading || !text.trim() || text.length > charsLeft ? '#333' : '#000', fontWeight: '800', fontSize: '17px', cursor: loading || !text.trim() || text.length > charsLeft ? 'not-allowed' : 'pointer', transition: 'all 0.2s ease' }}>
-          {loading ? '⏳ Generating... (may take 20-60s on first use)' : '🎙️ Generate Voiceover'}
+          {loading ? '⏳ Generating...' : '🎙️ Generate Voiceover'}
         </button>
-
-        {loading && <p style={{ color: '#444', fontSize: '13px', textAlign: 'center', marginTop: '10px' }}>First generation of the day takes ~60 seconds while the server wakes up. After that it's fast!</p>}
 
         {audioUrl && (
           <div style={{ background: '#0d0d0d', border: '1px solid rgba(0,229,255,0.2)', borderRadius: '16px', padding: '24px', marginTop: '20px', textAlign: 'center' }}>
