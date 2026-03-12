@@ -2,10 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fix Tailwind base overriding inline link styles */
+/* Fix nav links */
 a { color: inherit; font-weight: inherit; text-decoration: none; }
-```
-nav a, nav button { font-weight: 700 !important; color: #ccc !important; }
+nav a, nav button { 
+  font-weight: 700 !important; 
+  color: #fff !important;
+  font-size: 15px !important;
+  letter-spacing: -0.01em !important;
+}
+
 /* ── Design tokens ───────────────────────────────────────── */
 :root {
   --bg:        #03030a;
