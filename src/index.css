@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fix nav links */
-a { color: inherit; font-weight: inherit; text-decoration: none; }
-nav a, nav button { 
-  font-weight: 700 !important; 
-  color: #fff !important;
-  font-size: 15px !important;
-  letter-spacing: -0.01em !important;
-}
-
 /* ── Design tokens ───────────────────────────────────────── */
 :root {
   --bg:        #03030a;
@@ -226,4 +217,11 @@ h1, h2, h3, h4 { font-family: 'Clash Display', sans-serif; }
   font-weight: 500;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
+}
+/* ── Nav fix ─────────────────────────────────────────────── */
+nav a, nav button {
+  font-weight: 700 !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  letter-spacing: -0.01em !important;
 }
