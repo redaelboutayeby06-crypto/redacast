@@ -69,7 +69,9 @@ export default function App() {
     }
   }, [audioUrl])
 
-  const limit = user ? MONTHLY_LIMIT : GUEST_LIMIT
+  const ADMIN_EMAILS = ['ismailyami1212@gmail.com'] // put your real email here
+const isAdmin = user && ADMIN_EMAILS.includes(user.email)
+const limit = isAdmin ? 999999999 : user ? MONTHLY_LIMIT : GUEST_LIMIT
   const charsLeft = limit - charsUsed
   const usagePercent = Math.min((charsUsed / limit) * 100, 100)
   const selectedVoice = VOICES.find(v => v.id === voice)
