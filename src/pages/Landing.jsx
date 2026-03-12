@@ -376,5 +376,8 @@ export default function Landing() {
           <Link to="/privacy" style={{ color: '#444', fontSize: '12px', textDecoration: 'none' }}>Privacy Policy</Link>
           <Link to="/terms" style={{ color: '#444', fontSize: '12px', textDecoration: 'none' }}>Terms of Service</Link>
         </div>
-      </footer>
-```
+            </footer>
+
+    </div>
+  );
+}
