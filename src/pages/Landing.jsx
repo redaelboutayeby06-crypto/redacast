@@ -369,11 +369,12 @@ export default function Landing() {
       <footer style={{ position: 'relative', zIndex: 10, borderTop: '1px solid rgba(255,255,255,0.05)', padding: '24px 48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <Waveform bars={6} active height={16} />
-          <span style={{ fontSize: '13px', color: '#333', fontWeight: '600' }}>ReVoice AI</span>
+          <span style={{ fontSize: '13px', color: '#333', fontWeight: '600' }}>Redacast</span>
         </div>
-        <span style={{ fontSize: '12px', color: '#333' }}>© 2026 · Built for faceless creators</span>
+        <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+          <span style={{ fontSize: '12px', color: '#333' }}>© 2026 · Built for faceless creators</span>
+          <Link to="/privacy" style={{ color: '#444', fontSize: '12px', textDecoration: 'none' }}>Privacy Policy</Link>
+          <Link to="/terms" style={{ color: '#444', fontSize: '12px', textDecoration: 'none' }}>Terms of Service</Link>
+        </div>
       </footer>
-
-    </div>
-  );
-}
+```

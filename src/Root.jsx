@@ -3,6 +3,8 @@ import { AuthProvider, useAuth } from './firebase/AuthContext';
 import Landing from './pages/Landing';
 import Login   from './pages/Login';
 import AppPage from './pages/App';
+import Privacy from './pages/Privacy';
+import Terms   from './pages/Terms';
 import './index.css';
 
 function Protected({ children }) {
@@ -24,10 +26,12 @@ export default function Root() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path="/"      element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/app"   element={<AppPage />} />
-          <Route path="*"      element={<Navigate to="/" replace />} />
+          <Route path="/"        element={<Landing />} />
+          <Route path="/login"   element={<Login />} />
+          <Route path="/app"     element={<AppPage />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms"   element={<Terms />} />
+          <Route path="*"        element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
