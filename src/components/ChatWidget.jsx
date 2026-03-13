@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
-const GROQ_API_KEY = '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'
+const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY
 
 const SYSTEM_PROMPT = `You are Reda, a soft and calm AI assistant for Redacast — a text-to-speech tool built for faceless YouTube creators, podcasters, and commentary channels.
 
