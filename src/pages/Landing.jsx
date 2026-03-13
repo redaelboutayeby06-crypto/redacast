@@ -127,7 +127,7 @@ export default function Landing() {
       {/* Who it's for */}
       <section id="creators" style={{ position: 'relative', zIndex: 10, padding: '80px 24px', maxWidth: 1000, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <h2 style={{ fontSize: '34px', fontWeight: '800', marginBottom: '12px', letterSpacing: '-0.02em' }}>Who uses ReVoice AI?</h2>
+          <h2 style={{ fontSize: '34px', fontWeight: '800', marginBottom: '12px', letterSpacing: '-0.02em' }}>Who uses Redacast?</h2>
           <p style={{ color: '#666', fontSize: '16px' }}>If you create content without showing your face — this is built for you.</p>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
@@ -198,7 +198,7 @@ export default function Landing() {
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                 <th style={{ padding: '16px 24px', textAlign: 'left', color: '#555', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>Feature</th>
-                <th style={{ padding: '16px 24px', textAlign: 'center', color: '#a5b4fc', fontSize: '14px', fontWeight: '700' }}>ReVoice AI</th>
+                <th style={{ padding: '16px 24px', textAlign: 'center', color: '#a5b4fc', fontSize: '14px', fontWeight: '700' }}>Redacast</th>
                 <th style={{ padding: '16px 24px', textAlign: 'center', color: '#555', fontSize: '14px', fontWeight: '700' }}>TTSMaker</th>
                 <th style={{ padding: '16px 24px', textAlign: 'center', color: '#555', fontSize: '14px', fontWeight: '700' }}>ElevenLabs</th>
               </tr>
@@ -360,7 +360,7 @@ export default function Landing() {
           <h2 style={{ fontSize: '44px', fontWeight: '800', color: '#fff', marginBottom: '14px', letterSpacing: '-0.03em' }}>Start generating today</h2>
           <p style={{ color: '#555', fontSize: '16px', marginBottom: '36px', lineHeight: '1.6' }}>2,000 chars free. No signup. No credit card. No catch.</p>
           <Link to="/app" style={{ display: 'inline-block', fontSize: '16px', padding: '14px 36px', background: '#6366f1', borderRadius: '10px', color: '#fff', fontWeight: '700', textDecoration: 'none' }}>
-            Try ReVoice AI Free →
+            Try Redacast Free →
           </Link>
         </div>
       </section>
