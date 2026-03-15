@@ -52,7 +52,7 @@ const PrivacyPolicy = () => {
           },
           {
             title: '6. Your Rights',
-            content: <p style={p}>You have the right to access your personal data, correct inaccurate data, delete your account and associated data, export your data, and opt-out of marketing communications. To exercise these rights, contact us at privacy@redacast.app</p>
+            content: <p style={p}>You have the right to access your personal data, correct inaccurate data, delete your account and associated data, export your data, and opt-out of marketing communications. To exercise these rights, contact us at redacast@gmail.com</p>
           },
           {
             title: '7. Cookies and Tracking',
@@ -72,7 +72,7 @@ const PrivacyPolicy = () => {
           },
           {
             title: '11. Contact Us',
-            content: <p style={p}>For privacy-related questions, email us at: <span style={{ color: '#a5b4fc' }}>privacy@redacast.app</span></p>
+            content: <p style={p}>For privacy-related questions, email us at: <span style={{ color: '#a5b4fc' }}>redacastapp@gmail.com</span></p>
           },
         ].map((section, i) => (
           <div key={i} style={{ marginBottom: 40, paddingBottom: 40, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
